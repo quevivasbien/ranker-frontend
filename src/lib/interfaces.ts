@@ -7,8 +7,15 @@ export interface User {
     name: string;
 }
 
-export interface UserRating {
+export interface UserScore {
     itemName: string;
     userName: string;
     rating: number;
+    numVotes: number;
+}
+
+export interface GlobalScore {
+    itemName: string;
+    rating: number;
+    numVotes: number;
 }
