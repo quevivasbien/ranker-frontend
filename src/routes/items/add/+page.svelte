@@ -1,7 +1,7 @@
 <script lang="ts">
     export let data;
 
-    const { getItems, addItem } = data;
+    const { addItem } = data;
 
     let name: string;
     let description: string;
@@ -21,14 +21,5 @@
         <input type="text" bind:value={description} />
     </label>
     <button type="submit">Submit</button>
-
-    {#await getItems() then items}
-        {#each items as item}
-            <div>
-                <h2>{item.name}</h2>
-                <p>{item.description}</p>
-            </div>
-        {/each}
-    {/await}
 </form>
 
