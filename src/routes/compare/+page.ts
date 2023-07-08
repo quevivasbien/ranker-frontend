@@ -5,7 +5,11 @@ import { get } from "svelte/store";
 
 export function load(event: LoadEvent) {
     const getItemsForComparison = async () => {
-        const username = get(user);
+        const userInfo = get(user);
+        if (!userInfo) {
+            return [];
+        }
+        const username = userInfo.username;
         const response = await event.fetch(`http://localhost:8080/users/${username}/compare`);
         const items: string[] = await response.json();
         return items;
@@ -32,7 +36,11 @@ export function load(event: LoadEvent) {
     }
 
     const sendUserChoice = async (item1: string, item2: string, winner: string) => {
-        const username = get(user);
+        const userInfo = get(user);
+        if (!userInfo) {
+            return 500;
+        }
+        const username = userInfo.username;
         const response = await event.fetch(`http://localhost:8080/users/${username}/compare`, {
             method: "POST",
             headers: {
@@ -43,10 +51,8 @@ export function load(event: LoadEvent) {
                 item2,
                 winner,
             }),
-            // Need to handle this differently when deploying
-            mode: "no-cors"
         });
-        console.log("Response from server", response);
+        return response.status;
     }
 
     return {

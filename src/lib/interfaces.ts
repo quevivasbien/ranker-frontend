@@ -19,3 +19,8 @@ export interface GlobalScore {
     rating: number;
     numVotes: number;
 }
+
+export interface SessionInfo {
+    username: string;
+    token: string;
+}

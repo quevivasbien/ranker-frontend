@@ -1,5 +1,5 @@
 import { writable, type Writable } from 'svelte/store';
-import type { Item } from '$lib/interfaces';
+import type { Item, SessionInfo } from '$lib/interfaces';
 
 export const allItems: Writable<Item[]> = writable([]);
-export const user: Writable<string> = writable("Default");
+export const user: Writable<SessionInfo | null> = writable(null);

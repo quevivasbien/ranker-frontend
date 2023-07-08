@@ -1,9 +1,12 @@
 <script lang="ts">
     import type { GlobalScore } from "$lib/interfaces";
 
-    export let score: GlobalScore;
+    export let score: GlobalScore | null;
 </script>
 
-<h2>{score.itemName}</h2>
-<p>Rating: {score.rating}</p>
-<p>Number of votes: {score.numVotes}</p>
+{#if score === null}
+    <p>Unrated</p>
+{:else}
+    <p>Rating: {score.rating}</p>
+    <p>Number of votes: {score.numVotes}</p>
+{/if}
