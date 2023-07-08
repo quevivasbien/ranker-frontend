@@ -5,7 +5,7 @@
 </script>
 
 {#if score === null}
-    <p>Unrated</p>
+    <!-- <p>Unrated</p> -->
 {:else}
     <p>Rating: {score.rating}</p>
     <p>Number of votes: {score.numVotes}</p>

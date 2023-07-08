@@ -1,21 +1,16 @@
 <script lang="ts">
     import ItemInfo from "$lib/components/ItemInfo.svelte";
-    import { onMount } from "svelte";
 
     export let data;
 
     const { getItemsForComparison, getItem, sendUserChoice } = data;
 
-    let itemsPromise: Promise<string[]> = getItemsForComparison();
-
-    // onMount(() => {
-    //     itemsPromise = getItemsForComparison();
-    // });
+    let itemsPromise: Promise<string[] | null> = getItemsForComparison();
 
     let itemSelected: string | undefined;
 
-    function submitComparison(items: string[]) {
-        if (itemSelected === undefined) {
+    function submitComparison(items: string[] | null) {
+        if (itemSelected === undefined || items === null) {
             return;
         }
         sendUserChoice(items[0], items[1], itemSelected).then(() => {
@@ -30,6 +25,7 @@
     <p>loading...</p>
 {:then items}
     <form on:submit|preventDefault={() => submitComparison(items)}>
+        {#if items}
         {#each items as itemName}
             <label>
                 <input type="radio" bind:group={itemSelected} value={itemName} />
@@ -44,6 +40,7 @@
                 {/await}
             </label>
         {/each}
+        {/if}
         <button type="submit" disabled={itemSelected === undefined}>Submit</button>
     </form>
     

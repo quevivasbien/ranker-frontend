@@ -7,10 +7,17 @@ export function load(event: LoadEvent) {
     const getItemsForComparison = async () => {
         const userInfo = get(user);
         if (!userInfo) {
-            return [];
+            console.log("No user info when fetching items for comparison");
+            return null;
         }
-        const username = userInfo.username;
-        const response = await event.fetch(`http://localhost:8080/users/${username}/compare`);
+        const response = await event.fetch(
+            `http://localhost:8080/compare`,
+            {
+                headers: {
+                    "Authorization": userInfo.token,
+                },
+            }
+        );
         const items: string[] = await response.json();
         return items;
     }
@@ -23,7 +30,19 @@ export function load(event: LoadEvent) {
             return item;
         }
         // if not found, fetch from server
-        const response = await event.fetch(`http://localhost:8080/items/${itemName}`);
+        const userInfo = get(user);
+        if (userInfo == null) {
+            console.log("No user info when fetching item info for comparison");
+            return null;
+        }
+        const response = await event.fetch(
+            `http://localhost:8080/items/${itemName}`,  
+            {
+                headers: {
+                    "Authorization": userInfo.token,
+                },
+            }
+        );
         if (!response.ok) {
             console.log("Error fetching item, received response", response);
             return null;
@@ -38,6 +57,7 @@ export function load(event: LoadEvent) {
     const sendUserChoice = async (item1: string, item2: string, winner: string) => {
         const userInfo = get(user);
         if (!userInfo) {
+            console.log("No user info when sending user choice");
             return 500;
         }
         const username = userInfo.username;
@@ -45,6 +65,7 @@ export function load(event: LoadEvent) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": userInfo.token,
             },
             body: JSON.stringify({
                 item1,
