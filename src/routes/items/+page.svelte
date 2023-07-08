@@ -1,23 +1,30 @@
 <script lang="ts">
     import ItemInfo from '$lib/components/ItemInfo.svelte';
-    import ScoreInfo from '$lib/components/ScoreInfo.svelte';
-    import { allItems } from '$lib/stores';
+    import { allItems, user } from '$lib/stores';
 
     export let data;
 
-    const { getGlobalScore } = data;
+    const { getGlobalScore, getUserScore } = data;
+
+    async function getScores(item: string) {
+        const globalScore = await getGlobalScore(item);
+        let userScore;
+        if ($user !== null) {
+            userScore = await getUserScore(item);
+        }
+        return { globalScore, userScore };
+    }
 </script>
 
 <div>
     Total items: {$allItems.length}
 </div>
-<div>
+<div class="my-2 space-y-4">
     {#each $allItems as item}
-        <ItemInfo {item} />
-        {#await getGlobalScore(item.name)}
+        {#await getScores(item.name)}
             <p>loading...</p>
-        {:then score}
-            <ScoreInfo {score} />
+        {:then scores}
+            <ItemInfo {item} globalScore={scores.globalScore} userScore={scores.userScore} />
         {/await}
     {/each}
 </div>

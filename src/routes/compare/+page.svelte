@@ -24,8 +24,9 @@
 {#await itemsPromise}
     <p>loading...</p>
 {:then items}
-    <form on:submit|preventDefault={() => submitComparison(items)}>
+    <form on:submit|preventDefault={() => submitComparison(items)} class="flex flex-col space-y-2">
         {#if items}
+        <div class="flex flex-row space-x-4">
         {#each items as itemName}
             <label>
                 <input type="radio" bind:group={itemSelected} value={itemName} />
@@ -40,8 +41,11 @@
                 {/await}
             </label>
         {/each}
+        </div>
         {/if}
-        <button type="submit" disabled={itemSelected === undefined}>Submit</button>
+        <div class="flex flex-row justify-end">
+            <button type="button" class="drop-shadow rounded bg-blue-200 disabled:bg-gray-300 p-2" disabled={itemSelected === undefined} on:click={() => submitComparison(items)}>Submit</button>
+        </div>
     </form>
     
 {/await}
