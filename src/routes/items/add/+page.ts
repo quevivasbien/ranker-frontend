@@ -22,7 +22,7 @@ export function load(event: LoadEvent) {
             }),
         });
         if (response.ok) {
-            goto("/items");
+            goto("{base}/items");
         }
     }
     return {

@@ -1,4 +1,5 @@
 import { goto } from "$app/navigation";
+import { base } from "$app/paths";
 import type { LoadEvent } from "@sveltejs/kit";
 
 export function load(event: LoadEvent) {
@@ -14,7 +15,7 @@ export function load(event: LoadEvent) {
             }),
         });
         if (response.ok) {
-            goto("/login");
+            goto(`${base}/login`);
         }
     }
     return {

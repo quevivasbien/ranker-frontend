@@ -1,5 +1,6 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
+    import { base } from '$app/paths';
 
     export let data;
 
@@ -13,7 +14,7 @@
     async function submitForm() {
         const status = await login(username, password);
         if (status === 200) {
-            goto('/items');
+            goto(`${base}/items`);
             return;
         }
         password = '';
@@ -50,7 +51,7 @@
 
     <div>
         <span>Don't have an account?</span>
-        <a href="/users/add" class="text-blue-500 hover:text-blue-300">Register</a>
+        <a href={`${base}/users/add`} class="text-blue-500 hover:text-blue-300">Register</a>
     </div>
     
 </div>
