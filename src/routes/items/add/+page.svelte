@@ -22,7 +22,7 @@
         </label>
         <label class="flex flex-row justify-between">
             <span>Description</span>
-            <input type="password" class="border rounded-lg p-2" bind:value={description} />
+            <input type="text" class="border rounded-lg p-2" bind:value={description} />
         </label>
         <div class="flex flex-row justify-end">
             <button type="submit" class="drop-shadow rounded bg-blue-200 disabled:bg-gray-300 p-2" disabled={!inputValid}>Submit</button>

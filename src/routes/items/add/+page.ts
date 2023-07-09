@@ -1,4 +1,5 @@
 import { goto } from "$app/navigation";
+import { base } from "$app/paths";
 import type { SessionInfo } from "$lib/interfaces";
 import { user } from "$lib/stores";
 import type { LoadEvent } from "@sveltejs/kit";
@@ -22,7 +23,7 @@ export function load(event: LoadEvent) {
             }),
         });
         if (response.ok) {
-            goto("{base}/items");
+            goto(`${base}/items`);
         }
     }
     return {
