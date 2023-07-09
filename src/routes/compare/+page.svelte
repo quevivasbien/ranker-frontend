@@ -28,12 +28,12 @@
         {#if items}
         <div class="flex flex-row space-x-4">
             {#each items as itemName}
-                <label class="flex flex-row cursor-pointer">
+                <label class="flex flex-row cursor-pointer min-w-[25%]">
                     <input type="radio" bind:group={itemSelected} value={itemName} class="appearance-none" />
                     {#await getItem(itemName)}
                         <p>loading...</p>
                     {:then item}
-                        <div class={`border rounded-md m-1 p-2 ${itemSelected === itemName ? "bg-white drop-shadow-md border-2" : "bg-inherit"}`}>
+                        <div class={`border rounded-md m-1 p-4 w-full ${itemSelected === itemName ? "bg-white drop-shadow-md border-2" : "bg-inherit"}`}>
                             {#if item !== null}
                                 <ItemInfo {item} />
                             {:else}

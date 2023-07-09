@@ -12,7 +12,7 @@ export async function load(event: LoadEvent) {
         };
     }
     const response = await event.fetch(
-        "http://localhost:8080/users",
+        "https://ranker-backend.fly.dev/users",
         {
             headers: {
                 "Authorization": userInfo.token,

@@ -19,12 +19,14 @@
 <div>
     Total items: {$allItems.length}
 </div>
-<div class="my-2 space-y-4">
+<div class="flex flex-wrap my-2">
     {#each $allItems as item}
+    <div class="m-8">
         {#await getScores(item.name)}
             <p>loading...</p>
         {:then scores}
             <ItemInfo {item} globalScore={scores.globalScore} userScore={scores.userScore} />
         {/await}
+    </div>
     {/each}
 </div>

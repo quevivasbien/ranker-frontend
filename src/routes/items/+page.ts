@@ -6,7 +6,7 @@ import { get } from "svelte/store";
 export async function load(event: LoadEvent) {
     const getGlobalScore = async (itemName: string) => {
         const response = await event.fetch(
-            `http://localhost:8080/scores/${itemName}`,
+            `https://ranker-backend.fly.dev/scores/${itemName}`,
         );
         if (response.ok) {
             const score: GlobalScore = await response.json();
@@ -22,7 +22,7 @@ export async function load(event: LoadEvent) {
             return null;
         }
         const response = await event.fetch(
-            `http://localhost:8080/scores/${itemName}/${userInfo.username}`,
+            `https://ranker-backend.fly.dev/scores/${itemName}/${userInfo.username}`,
             {
                 headers: {
                     "Authorization": userInfo.token,
@@ -37,7 +37,7 @@ export async function load(event: LoadEvent) {
         return null;
     }
 
-    const response = await event.fetch("http://localhost:8080/items");
+    const response = await event.fetch("https://ranker-backend.fly.dev/items");
     const items: Item[] = await response.json();
     allItems.set(items);
     return {

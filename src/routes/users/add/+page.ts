@@ -3,7 +3,7 @@ import type { LoadEvent } from "@sveltejs/kit";
 
 export function load(event: LoadEvent) {
     const addUser = async (name: string, password: string) => {
-        const response = await event.fetch("http://localhost:8080/users", {
+        const response = await event.fetch("https://ranker-backend.fly.dev/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

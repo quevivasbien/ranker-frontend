@@ -11,13 +11,17 @@ export function load(event: LoadEvent) {
             return null;
         }
         const response = await event.fetch(
-            `http://localhost:8080/compare`,
+            `https://ranker-backend.fly.dev/compare`,
             {
                 headers: {
                     "Authorization": userInfo.token,
                 },
             }
         );
+        if (!response.ok) {
+            console.log("Error fetching items for comparison, received response", response);
+            return null;
+        }
         const items: string[] = await response.json();
         return items;
     }
@@ -36,7 +40,7 @@ export function load(event: LoadEvent) {
             return null;
         }
         const response = await event.fetch(
-            `http://localhost:8080/items/${itemName}`,  
+            `https://ranker-backend.fly.dev/items/${itemName}`,  
             {
                 headers: {
                     "Authorization": userInfo.token,
@@ -60,7 +64,7 @@ export function load(event: LoadEvent) {
             console.log("No user info when sending user choice");
             return 500;
         }
-        const response = await event.fetch(`http://localhost:8080/compare`, {
+        const response = await event.fetch(`https://ranker-backend.fly.dev/compare`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

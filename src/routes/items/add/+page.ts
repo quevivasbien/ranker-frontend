@@ -7,10 +7,10 @@ import { get } from "svelte/store";
 export function load(event: LoadEvent) {
     const sessionInfo = get(user);
     if (sessionInfo === null) {
-        goto("/login");
+        console.log("No user info when loading add item page");
     }
     const addItem = async (name: string, description: string) => {
-        const response = await event.fetch("http://localhost:8080/items", {
+        const response = await event.fetch("https://ranker-backend.fly.dev/items", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
