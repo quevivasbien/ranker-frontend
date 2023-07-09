@@ -60,8 +60,7 @@ export function load(event: LoadEvent) {
             console.log("No user info when sending user choice");
             return 500;
         }
-        const username = userInfo.username;
-        const response = await event.fetch(`http://localhost:8080/users/${username}/compare`, {
+        const response = await event.fetch(`http://localhost:8080/compare`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -15,7 +15,6 @@ export function load(event: LoadEvent) {
         });
         if (response.ok) {
             const token = await response.json();
-            console.log("Received token", token);
             user.set({ username, token });
         }
         return response.status;

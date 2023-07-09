@@ -20,27 +20,30 @@
     }
 </script>
 
-<h1>Which do you prefer?</h1>
+<h1 class="text-2xl mb-8">Which do you prefer?</h1>
 {#await itemsPromise}
     <p>loading...</p>
 {:then items}
     <form on:submit|preventDefault={() => submitComparison(items)} class="flex flex-col space-y-2">
         {#if items}
         <div class="flex flex-row space-x-4">
-        {#each items as itemName}
-            <label>
-                <input type="radio" bind:group={itemSelected} value={itemName} />
-                {#await getItem(itemName)}
-                    <p>loading...</p>
-                {:then item}
-                    {#if item !== null}
-                        <ItemInfo {item} />
-                    {:else}
-                        <p>Item not found</p>
-                    {/if}
-                {/await}
-            </label>
-        {/each}
+            {#each items as itemName}
+                <label class="flex flex-row cursor-pointer">
+                    <input type="radio" bind:group={itemSelected} value={itemName} class="appearance-none" />
+                    {#await getItem(itemName)}
+                        <p>loading...</p>
+                    {:then item}
+                        <div class={`border rounded-md m-1 p-2 ${itemSelected === itemName ? "bg-white drop-shadow-md border-2" : "bg-inherit"}`}>
+                            {#if item !== null}
+                                <ItemInfo {item} />
+                            {:else}
+                                <p>Item not found</p>
+                            {/if}
+                        </div>
+                       
+                    {/await}
+                </label>
+            {/each}
         </div>
         {/if}
         <div class="flex flex-row justify-end">
