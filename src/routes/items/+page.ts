@@ -33,7 +33,9 @@ export async function load(event: LoadEvent) {
             const score: UserScore = await response.json();
             return score;
         }
-        console.log("Error fetching user score", response);
+        if (response.status !== 404) {
+            console.log("Error fetching user score", response);
+        }
         return null;
     }
 
